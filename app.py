@@ -293,7 +293,7 @@ st.markdown(f"""
         <div style="font-size: 48px;">🚦</div>
         <div style="flex-grow: 1;">
             <div style="display: flex; align-items: center; gap: 10px;">
-                <h1 style="margin: 0; font-size: 32px; font-weight: 800; color: #ffffff;"><span class="gradient-text">DROMETRA</span></h1>
+                <h1 style="margin: 0; font-size: 32px; font-weight: 800; color: #ffffff;"><span class="gradient-text">Drometra</span></h1>
                 <span style="background: #ef4444; color: white; font-size: 11px; font-weight: bold; padding: 3px 8px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Live Command Center</span>
             </div>
             <div style="color: #94a3b8; font-size: 16px; margin-top: 4px; font-weight: 500;">

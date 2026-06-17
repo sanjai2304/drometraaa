@@ -238,7 +238,7 @@ function runIntroAnimation() {
             ctx.restore();
         }
         
-        // 4. DROMETRA logo fades in (2600ms+)
+        // 4. Drometra logo fades in (2600ms+)
         if (elapsed > 2400) {
             const content = document.getElementById('intro-content');
             if (content) {
@@ -1084,7 +1084,7 @@ function downloadPDF() {
     doc.setFont("helvetica", "bold");
     doc.setFontSize(22);
     doc.setTextColor(255, 255, 255);
-    doc.text("DROMETRA COMMAND CENTER", 14, 18);
+    doc.text("Drometra COMMAND CENTER", 14, 18);
     
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
