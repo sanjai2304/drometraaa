@@ -1,0 +1,6 @@
+dataset/
+plots/
+catboost_info/
+__pycache__/
+train.py
+analyze.py
