@@ -11,10 +11,5 @@
                   "src": "/(.*)",
                   "dest": "frontend/app.py"
           }
-    ],
-    "functions": {
-          "frontend/app.py": {
-                  "excludeFiles": "{dataset/**,plots/**,catboost_info/**,train.py,analyze.py}"
-          }
-    }
+    ]
 }
