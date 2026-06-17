@@ -462,7 +462,7 @@ function fetchTrafficNews() {
                     severityText = 'text-amber-400';
                     severityBg = 'bg-amber-950/20';
                 } else if (item.severity === 'Minor') {
-                    severityBorder = 'border-emerald-900/50';
+                    severityBorder = 'border-emerald-200';
                     severityText = 'text-emerald-400';
                     severityBg = 'bg-emerald-950/20';
                 } else if (item.severity === 'Info') {
@@ -516,13 +516,13 @@ function renderTable(incidents) {
     tbody.innerHTML = '';
     
     if (incidents.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" class="px-6 py-8 text-center text-slate-500">No matching records found</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" class="px-6 py-8 text-center text-slate-400">No matching records found</td></tr>`;
         return;
     }
     
     incidents.forEach(row => {
         const tr = document.createElement('tr');
-        tr.className = 'hover:bg-[#1e293b] hover:text-white transition-colors border-b border-[#334155]';
+        tr.className = 'hover:bg-[#1E293B] hover:text-white transition-colors border-b border-[#E2E8F0]';
         
         const prioBadge = row.priority.toLowerCase() === 'high' 
             ? `<span class="bg-red-950 border border-red-800 text-red-400 text-xs px-2.5 py-0.5 rounded-full font-bold">High</span>` 

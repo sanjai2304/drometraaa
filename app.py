@@ -12,7 +12,7 @@ import plotly.graph_objects as go
 
 # Set Page Config
 st.set_page_config(
-    page_title="AstraTraffic AI - Bengaluru Congestion Intelligence System",
+    page_title="Drometra - Bengaluru Congestion Intelligence System",
     page_icon="🚦",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -293,7 +293,7 @@ st.markdown(f"""
         <div style="font-size: 48px;">🚦</div>
         <div style="flex-grow: 1;">
             <div style="display: flex; align-items: center; gap: 10px;">
-                <h1 style="margin: 0; font-size: 32px; font-weight: 800; color: #ffffff;"><span class="gradient-text">AstraTraffic AI</span></h1>
+                <h1 style="margin: 0; font-size: 32px; font-weight: 800; color: #ffffff;"><span class="gradient-text">DROMETRA</span></h1>
                 <span style="background: #ef4444; color: white; font-size: 11px; font-weight: bold; padding: 3px 8px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Live Command Center</span>
             </div>
             <div style="color: #94a3b8; font-size: 16px; margin-top: 4px; font-weight: 500;">
@@ -394,7 +394,7 @@ if page == "🏠 Dashboard":
         st.write("""
         Bengaluru’s arterial network connects millions of commuters daily. Spontaneous events—such as breakdowns, accidents, waterlogging, or tree falls—trigger gridlocks that spread across adjacent junctions.
         
-        **AstraTraffic AI** provides a real-time Decision Support System for Bengaluru Traffic Police (BTP) using machine learning pipelines to:
+        **Drometra** provides a real-time Decision Support System for Bengaluru Traffic Police (BTP) using machine learning pipelines to:
         * **Predict incident priority and severity** to dispatch resources.
         * **Map and geofence GPS coordinate feeds** to Bengaluru's 22 key traffic corridors.
         * **Assess spatial-temporal congestion risk** of propagation and gridlock spread.
