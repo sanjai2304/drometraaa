@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DROMETRA – Predict. Prevent. Manage.</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Leaflet Map CSS & JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+    <!-- Leaflet Marker Cluster -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    <!-- ApexCharts JS -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <!-- jsPDF JS for PDF exports -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Custom Style Sheet link -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="bg-[#0B1220] text-[#f8fafc] font-['Inter'] antialiased">
+
+    <!-- WELCOME OVERLAY INTRO ANIMATION -->
+    <div id="welcome-overlay" class="fixed inset-0 bg-[#071224] z-[9999] flex flex-col items-center justify-center transition-all duration-1000">
+        <canvas id="intro-canvas" class="absolute inset-0 pointer-events-none"></canvas>
+        
+        <!-- Logo & Text to reveal -->
+        <div id="intro-content" class="z-10 text-center opacity-0 scale-95 transition-all duration-[1500ms] ease-out">
+            <div class="inline-block text-7xl mb-6 filter drop-shadow-[0_0_20px_rgba(245,158,11,0.5)] animate-bounce">🚦</div>
+            <h1 class="text-6xl font-extrabold text-white tracking-wider font-['Outfit'] mb-2">
+                <span class="bg-gradient-to-r from-[#ffd700] via-[#ffffff] to-[#10b981] bg-clip-text text-transparent">DROMETRA</span>
+            </h1>
+            <p class="text-sm text-slate-300 uppercase tracking-[0.25em] font-semibold">Predict. Prevent. Manage.</p>
+        </div>
+    </div>
+
+    <!-- Global App Layout -->
+    <div class="flex h-screen overflow-hidden">
+        
+        <!-- SIDEBAR -->
+        <aside class="w-72 bg-[#071224] text-white flex flex-col justify-between shrink-0 border-r border-[#334155]">
+            <div>
+                <!-- Brand Header -->
+                <div class="p-6 border-b border-[#334155] flex items-center gap-3">
+                    <span class="text-3xl">🚦</span>
+                    <div>
+                        <h2 class="text-xl font-bold tracking-tight text-[#ffd700] font-['Outfit']">DROMETRA</h2>
+                        <span class="text-xs text-slate-400 font-semibold tracking-wider uppercase">Traffic Command Center</span>
+                    </div>
+                </div>
+
+                <!-- Navigation menu items -->
+                <nav class="p-4 space-y-1.5 overflow-y-auto max-h-[calc(100vh-240px)]">
+                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-left font-semibold transition-all duration-200 bg-[#111827] text-white border-l-4 border-[#2563EB] shadow-md">
+                        <i class="fa-solid fa-house text-base w-5 text-center text-[#ffd700]"></i>
+                        <span>Dashboard</span>
+                    </button>
+                    <button onclick="switchTab('predictor')" id="nav-predictor" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-left font-medium transition-all duration-200 text-slate-400 hover:bg-slate-800 hover:text-white">
+                        <i class="fa-solid fa-wand-magic-sparkles text-base w-5 text-center"></i>
+                        <span>Event Intelligence Engine</span>
+                    </button>
+                    <button onclick="switchTab('map')" id="nav-map" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-left font-medium transition-all duration-200 text-slate-400 hover:bg-slate-800 hover:text-white">
+                        <i class="fa-solid fa-map-location-dot text-base w-5 text-center"></i>
+                        <span>Geospatial Intelligence</span>
+                    </button>
+                    <button onclick="switchTab('analytics')" id="nav-analytics" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-left font-medium transition-all duration-200 text-slate-400 hover:bg-slate-800 hover:text-white">
+                        <i class="fa-solid fa-chart-line text-base w-5 text-center"></i>
+                        <span>Mobility Insights</span>
+                    </button>
+                    <button onclick="switchTab('recommendations')" id="nav-recommendations" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-left font-medium transition-all duration-200 text-slate-400 hover:bg-slate-800 hover:text-white">
+                        <i class="fa-solid fa-brain text-base w-5 text-center"></i>
+                        <span>Decision Support System</span>
+                    </button>
+                    <button onclick="switchTab('resources')" id="nav-resources" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-left font-medium transition-all duration-200 text-slate-400 hover:bg-slate-800 hover:text-white">
+                        <i class="fa-solid fa-user-shield text-base w-5 text-center"></i>
+                        <span>Resource Allocation</span>
+                    </button>
+                    <button onclick="switchTab('alerts')" id="nav-alerts" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-left font-medium transition-all duration-200 text-slate-400 hover:bg-slate-800 hover:text-white">
+                        <i class="fa-solid fa-bell text-base w-5 text-center"></i>
+                        <span>Alerts & Notifications</span>
+                    </button>
+                    <button onclick="switchTab('export')" id="nav-export" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-left font-medium transition-all duration-200 text-slate-400 hover:bg-slate-800 hover:text-white">
+                        <i class="fa-solid fa-file-pdf text-base w-5 text-center"></i>
+                        <span>Reports & Export</span>
+                    </button>
+                </nav>
+            </div>
+            
+            <!-- Sidebar Footer / Diagnostics -->
+            <div class="p-6 border-t border-[#334155] text-xs text-slate-400 space-y-1">
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#10b981] animate-pulse"></span>
+                    <span class="font-semibold text-white">🟢 System Active</span>
+                </div>
+                <p>Data Freshness: <span class="text-emerald-400 font-semibold">Live</span></p>
+                <p>Telemetry Node: GRID-02</p>
+                <p>ML Engine: Active</p>
+                <p>Version: DROMETRA v1.0</p>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT CONTAINER -->
+        <main class="flex-1 flex flex-col overflow-hidden bg-[#0B1220]">
+            
+            <!-- TOP APP HEADER -->
+            <header class="bg-[#071224] text-white border-b border-[#334155] px-8 py-4 flex items-center justify-between shrink-0 shadow-md">
+                <div class="flex items-center gap-4">
+                    <div class="text-3xl bg-white/5 p-2 rounded border border-white/10">🚦</div>
+                    <div>
+                        <h1 class="text-2xl font-extrabold tracking-tight font-['Outfit'] text-[#ffd700]">DROMETRA</h1>
+                        <p class="text-xs text-slate-300 uppercase tracking-wider font-semibold">Predict. Prevent. Manage.</p>
+                    </div>
+                </div>
+                <div class="text-right flex items-center gap-4">
+                    <div class="hidden md:block">
+                        <p id="live-clock" class="text-base font-semibold text-white font-mono"></p>
+                        <span class="bg-blue-900/40 text-blue-400 text-[10px] font-bold border border-blue-800 px-2 py-0.5 rounded uppercase tracking-wider">COMMAND MATRIX</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- MAIN WORKSPACE SCROLL AREA -->
+            <div class="flex-grow overflow-y-auto p-8 space-y-6">
+                
+                <!-- HERO JUDGE STATEMENT -->
+                <div class="bg-gradient-to-r from-blue-950 to-slate-900 border border-blue-900 p-6 rounded-xl shadow-md flex justify-between items-center flex-wrap gap-4">
+                    <div>
+                        <h4 class="text-lg font-bold text-[#ffd700] font-['Outfit']">Strategic Mobility Directive</h4>
+                        <p class="text-sm text-slate-300 italic mt-1">"From reactive traffic management to proactive mobility intelligence."</p>
+                    </div>
+                    <span class="bg-blue-500/20 text-blue-300 border border-blue-500/30 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider">AI Directed</span>
+                </div>
+
+                <!-- KPI CARDS GRID -->
+                <div class="grid grid-cols-2 lg:grid-cols-6 gap-4">
+                    <!-- Card 1 -->
+                    <div class="kpi-card relative overflow-hidden p-5 rounded-xl flex flex-col justify-between h-28 shadow-sm">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Reports</span>
+                            <span class="text-xl p-1.5 rounded bg-slate-800 text-[#3b82f6]"><i class="fa-solid fa-folder-open"></i></span>
+                        </div>
+                        <span id="kpi-total-events" class="text-3xl font-extrabold text-white font-['Outfit']">---</span>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="kpi-card relative overflow-hidden p-5 rounded-xl flex flex-col justify-between h-28 shadow-sm">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">High Severity</span>
+                            <span class="text-xl p-1.5 rounded bg-red-950 text-red-400"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                        </div>
+                        <span id="kpi-high-severity" class="text-3xl font-extrabold text-red-500 font-['Outfit']">---</span>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="kpi-card relative overflow-hidden p-5 rounded-xl flex flex-col justify-between h-28 shadow-sm">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Active Live</span>
+                            <span class="text-xl p-1.5 rounded bg-amber-950 text-amber-400"><i class="fa-solid fa-satellite-dish"></i></span>
+                        </div>
+                        <span id="kpi-active-incidents" class="text-3xl font-extrabold text-amber-500 font-['Outfit']">---</span>
+                    </div>
+                    <!-- Card 4 -->
+                    <div class="kpi-card relative overflow-hidden p-5 rounded-xl flex flex-col justify-between h-28 shadow-sm">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Road Closures</span>
+                            <span class="text-xl p-1.5 rounded bg-indigo-950 text-indigo-400"><i class="fa-solid fa-road-barrier"></i></span>
+                        </div>
+                        <span id="kpi-road-closures" class="text-3xl font-extrabold text-indigo-400 font-['Outfit']">---</span>
+                    </div>
+                    <!-- Card 5 -->
+                    <div class="kpi-card relative overflow-hidden p-5 rounded-xl flex flex-col justify-between h-28 shadow-sm">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Avg. Impact</span>
+                            <span class="text-xl p-1.5 rounded bg-purple-950 text-purple-400"><i class="fa-solid fa-bolt"></i></span>
+                        </div>
+                        <span id="kpi-avg-impact" class="text-3xl font-extrabold text-purple-400 font-['Outfit']">---</span>
+                    </div>
+                    <!-- Card 6 -->
+                    <div class="kpi-card relative overflow-hidden p-5 rounded-xl flex flex-col justify-between h-28 shadow-sm">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Congestion Index</span>
+                            <span class="text-xl p-1.5 rounded bg-emerald-950 text-emerald-400"><i class="fa-solid fa-chart-line"></i></span>
+                        </div>
+                        <span id="kpi-congestion-risk" class="text-3xl font-extrabold text-emerald-500 font-['Outfit']">---</span>
+                    </div>
+                </div>
+
+                <!-- DYNAMIC TAB PAGES CONTAINER -->
+                <div id="tab-workspace">
+
+                    <!-- TAB 1: DASHBOARD PAGE -->
+                    <div id="tab-dashboard" class="tab-pane space-y-6">
+                        <div class="grid grid-cols-1 lg:grid-cols-6 gap-6">
+                            
+                            <!-- Left: Traffic Health Index Circular Gauge -->
+                            <div class="lg:col-span-2 bg-[#111827] border border-[#334155] p-6 rounded-xl flex flex-col items-center justify-between shadow-sm min-h-[360px]">
+                                <h3 class="text-base font-bold text-[#ffd700] w-full flex items-center gap-2"><i class="fa-solid fa-heart-pulse"></i> Traffic Health Index</h3>
+                                <div class="relative w-36 h-36 flex items-center justify-center my-4">
+                                    <svg class="w-full h-full transform -rotate-90">
+                                        <circle cx="72" cy="72" r="58" stroke="#111827" stroke-width="10" fill="transparent" />
+                                        <circle id="health-gauge-circle" cx="72" cy="72" r="58" stroke="#10b981" stroke-width="10" fill="transparent"
+                                            stroke-dasharray="364" stroke-dashoffset="80" stroke-linecap="round" class="transition-all duration-1000 ease-out" />
+                                    </svg>
+                                    <div class="absolute text-center">
+                                        <span id="health-gauge-text" class="text-3xl font-black text-white font-['Outfit']">78</span>
+                                        <span class="text-[9px] text-slate-400 block tracking-widest uppercase">HEALTH</span>
+                                    </div>
+                                </div>
+                                <div class="w-full text-center space-y-2">
+                                    <span id="health-status-badge" class="bg-emerald-950 border border-emerald-800 text-emerald-400 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider">Stable</span>
+                                    <p class="text-[10px] text-slate-400 mt-1 leading-normal">Derived from Congestion Risk, Event Density, closures, and active incidents</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Middle: Daily Bengaluru Traffic News -->
+                            <div class="lg:col-span-2 bg-[#111827] border border-[#334155] p-6 rounded-xl flex flex-col justify-between shadow-sm min-h-[360px]">
+                                <div class="flex flex-col h-full justify-between">
+                                    <div>
+                                        <h3 class="text-base font-bold text-[#ffd700] flex items-center gap-2 mb-3">
+                                            <i class="fa-solid fa-newspaper text-[#ffd700]"></i> Daily Bengaluru Traffic News
+                                        </h3>
+                                        <div id="traffic-news-list" class="space-y-3 overflow-y-auto max-h-[230px] pr-1">
+                                            <div class="text-center py-8 text-slate-400 text-xs">
+                                                <i class="fa-solid fa-circle-notch animate-spin mr-2"></i> Loading daily traffic news...
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3 text-[10px] text-slate-400 flex items-center justify-between border-t border-[#334155] pt-2">
+                                        <span>Source: Bengaluru Traffic Police (BTP)</span>
+                                        <span id="news-date-badge" class="font-semibold text-slate-300"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Right: Event Cause Distribution Chart -->
+                            <div class="lg:col-span-2 bg-[#111827] border border-[#334155] p-6 rounded-xl shadow-sm min-h-[360px]">
+                                <h3 class="text-base font-bold text-slate-300 mb-2"><i class="fa-solid fa-chart-pie mr-2 text-[#ffd700]"></i>Trigger Cause Breakdown</h3>
+                                <div id="dashboard-cause-chart" class="h-[250px]"></div>
+                            </div>
+                        </div>
+
+                        <!-- Row 2: Alerts & Impact Dashboard / SDG -->
+                        <div class="grid grid-cols-1 lg:grid-cols-6 gap-6">
+                            
+                            <!-- Critical Alerts Panel -->
+                            <div class="lg:col-span-3 bg-[#111827] border border-[#334155] p-6 rounded-xl shadow-sm space-y-4">
+                                <h3 class="text-base font-bold text-red-400 flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation"></i> Live Critical Alerts</h3>
+                                <div id="live-alerts-list" class="space-y-3 max-h-[260px] overflow-y-auto pr-1">
+                                    <!-- Populated dynamically -->
+                                    <div class="flex items-start justify-between bg-red-950/30 border border-red-900/50 p-3 rounded-lg text-xs">
+                                        <div class="space-y-1">
+                                            <div class="font-bold text-red-400 uppercase tracking-wider">🔴 HIGH ALERT</div>
+                                            <div class="font-semibold text-slate-200 text-sm">Outer Ring Road (Hebbal Flyover)</div>
+                                            <div class="text-slate-400">Affected Junctions: Hebbal, Outer Ring Rd</div>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="bg-red-900/50 border border-red-700 text-red-300 font-bold px-2 py-0.5 rounded text-[10px]">ETA: 20m</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start justify-between bg-amber-950/30 border border-amber-900/50 p-3 rounded-lg text-xs">
+                                        <div class="space-y-1">
+                                            <div class="font-bold text-amber-400 uppercase tracking-wider">🟠 MEDIUM ALERT</div>
+                                            <div class="font-semibold text-slate-200 text-sm">Cubbon Road</div>
+                                            <div class="text-slate-400">Affected Junctions: MG Road Metro, Cubbon</div>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="bg-amber-900/50 border border-amber-700 text-amber-300 font-bold px-2 py-0.5 rounded text-[10px]">ETA: 15m</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Impact & SDG Dashboard -->
+                            <div class="lg:col-span-3 bg-[#111827] border border-[#334155] p-6 rounded-xl shadow-sm space-y-4 flex flex-col justify-between">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <!-- Before vs After -->
+                                    <div class="space-y-2">
+                                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Before DROMETRA</h4>
+                                        <div class="bg-[#1E293B] p-3 rounded-lg border border-red-950/30 space-y-1 text-xs">
+                                            <p class="flex justify-between"><span class="text-slate-400">Response Time:</span> <span class="text-red-400 font-bold">25 min</span></p>
+                                            <p class="flex justify-between"><span class="text-slate-400">Congestion Rate:</span> <span class="text-red-400 font-bold">+40%</span></p>
+                                            <p class="flex justify-between"><span class="text-slate-400">Dispatch Lag:</span> <span class="text-red-400 font-bold">12 min</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">With DROMETRA AI</h4>
+                                        <div class="bg-emerald-950/20 p-3 rounded-lg border border-emerald-900/30 space-y-1 text-xs">
+                                            <p class="flex justify-between"><span class="text-slate-300">Response Time:</span> <span class="text-emerald-400 font-bold">10 min</span></p>
+                                            <p class="flex justify-between"><span class="text-slate-300">Secondary Delay:</span> <span class="text-emerald-400 font-bold">-15%</span></p>
+                                            <p class="flex justify-between"><span class="text-slate-300">Dispatch Lag:</span> <span class="text-emerald-400 font-bold">&lt; 2 min</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- SDG Alignment -->
+                                <div class="border-t border-[#334155] pt-3 mt-1">
+                                    <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">UN Sustainable Development Goals</h4>
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <div class="flex items-center gap-2 bg-[#1E293B] p-2 rounded border border-[#334155] text-[10px]">
+                                            <span class="text-xl">🏙️</span>
+                                            <div>
+                                                <p class="font-bold text-white">SDG 11</p>
+                                                <p class="text-slate-400 text-[9px]">Sustainable Cities</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center gap-2 bg-[#1E293B] p-2 rounded border border-[#334155] text-[10px]">
+                                            <span class="text-xl">🏭</span>
+                                            <div>
+                                                <p class="font-bold text-white">SDG 9</p>
+                                                <p class="text-slate-400 text-[9px]">Innovation & Infra</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Incident Triage Feed Table -->
+                        <div class="bg-[#111827] border border-[#334155] p-6 rounded-xl shadow-sm space-y-4">
+                            <div class="flex justify-between items-center flex-wrap gap-4">
+                                <h3 class="text-lg font-bold text-slate-200"><i class="fa-solid fa-list-check mr-2 text-blue-400"></i>Incident Triage Log</h3>
+                                <input type="text" id="table-search" oninput="filterTable()" placeholder="🔍 Filter by corridor, cause, junction..." class="bg-[#1E293B] border border-[#334155] px-4 py-2 rounded-lg text-sm focus:outline-none focus:border-blue-500 text-white w-64 shadow-inner">
+                            </div>
+                            
+                            <div class="overflow-x-auto rounded-lg border border-[#334155]">
+                                <table class="w-full text-left text-sm text-slate-300">
+                                    <thead class="bg-[#1E293B] text-xs font-semibold text-white uppercase tracking-wider border-b border-[#334155]">
+                                        <tr>
+                                            <th class="px-6 py-4">Start Time</th>
+                                            <th class="px-6 py-4">Trigger Cause</th>
+                                            <th class="px-6 py-4">Priority</th>
+                                            <th class="px-6 py-4">Corridor</th>
+                                            <th class="px-6 py-4">Junction</th>
+                                            <th class="px-6 py-4">Impact Score</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="incidents-table-body" class="divide-y divide-[#334155]">
+                                        <!-- Populated via script -->
+                                        <tr>
+                                            <td colspan="6" class="px-6 py-12 text-center text-slate-400"><i class="fa-solid fa-spinner animate-spin mr-2"></i>Loading live incident feed...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 2: EVENT INTELLIGENCE ENGINE -->
+                    <div id="tab-predictor" class="tab-pane hidden space-y-6">
+                        <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+                            
+                            <!-- Left: Form inputs -->
+                            <div class="lg:col-span-2 bg-[#111827] border border-[#334155] p-6 rounded-xl shadow-sm space-y-6">
+                                <h3 class="text-lg font-bold text-slate-200 border-b border-[#334155] pb-3"><i class="fa-solid fa-file-waveform mr-2 text-blue-400"></i>Simulate Traffic Incident</h3>
+                                
+                                <form id="prediction-form" onsubmit="runPrediction(event)" class="space-y-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-400 uppercase mb-1.5">Event Type</label>
+                                        <select id="input-event-type" class="w-full bg-[#1E293B] border border-[#334155] px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 text-white" required></select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-400 uppercase mb-1.5">Event Cause</label>
+                                        <select id="input-event-cause" class="w-full bg-[#1E293B] border border-[#334155] px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 text-white" required></select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-400 uppercase mb-1.5">Priority Level</label>
+                                        <select id="input-priority" class="w-full bg-[#1E293B] border border-[#334155] px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 text-white" required>
+                                            <option value="High">High</option>
+                                            <option value="Low" selected>Low</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-400 uppercase mb-1.5">Requires Road Closure</label>
+                                        <select id="input-road-closure" class="w-full bg-[#1E293B] border border-[#334155] px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 text-white" required>
+                                            <option value="No" selected>No</option>
+                                            <option value="Yes">Yes</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-400 uppercase mb-1.5">Municipal Zone</label>
+                                        <select id="input-zone" onchange="updateJunctionDropdown(this.value)" class="w-full bg-[#1E293B] border border-[#334155] px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 text-white" required></select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-400 uppercase mb-1.5">Junction Name</label>
+                                        <select id="input-junction" class="w-full bg-[#1E293B] border border-[#334155] px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 text-white" required></select>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-400 uppercase mb-1.5">Date</label>
+                                            <input type="date" id="input-date" class="w-full bg-[#1E293B] border border-[#334155] px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 text-white" required>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-400 uppercase mb-1.5">Time</label>
+                                            <input type="time" id="input-time" class="w-full bg-[#1E293B] border border-[#334155] px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 text-white" required>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-400 uppercase mb-1.5">Duration (Minutes)</label>
+                                        <input type="number" id="input-duration" min="1" max="1440" value="60" class="w-full bg-[#1E293B] border border-[#334155] px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 text-white" required>
+                                    </div>
+                                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 shadow shadow-sky-500/10 mt-6">
+                                        💡 Run AI Traffic Inference
+                                    </button>
+                                </form>
+                            </div>
+                            
+                            <!-- Right: Prediction Results output -->
+                            <div class="lg:col-span-3 space-y-6">
+                                <div id="prediction-result-panel" class="hidden space-y-6">
+                                    
+                                    <!-- PDF Export Action Bar -->
+                                    <div class="flex justify-between items-center bg-[#111827] border border-[#334155] p-4 rounded-xl shadow-sm">
+                                        <h4 class="text-sm font-bold text-[#ffd700] uppercase tracking-wider"><i class="fa-solid fa-square-poll-vertical mr-2"></i>Prediction Output</h4>
+                                        <button onclick="downloadPDF()" class="bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-bold text-xs px-4 py-2 rounded-lg flex items-center gap-2 transition-all shadow-md">
+                                            <i class="fa-solid fa-file-pdf"></i> Download Incident Report (PDF)
+                                        </button>
+                                    </div>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        
+                                        <!-- Event Impact Score Gauge -->
+                                        <div class="bg-[#111827] border border-[#334155] p-6 rounded-xl shadow-sm flex flex-col items-center justify-center text-center">
+                                            <h5 class="text-xs font-bold text-slate-400 uppercase mb-4 tracking-wider">⚡ Event Impact Score</h5>
+                                            <div class="relative flex items-center justify-center">
+                                                <svg width="150" height="150" viewBox="0 0 150 150">
+                                                    <circle cx="75" cy="75" r="60" stroke="#0f172a" stroke-width="12" fill="transparent" />
+                                                    <circle id="gauge-circle" cx="75" cy="75" r="60" stroke="#10b981" stroke-width="12" fill="transparent"
+                                                            stroke-dasharray="377" stroke-dashoffset="377" stroke-linecap="round"
+                                                            transform="rotate(-90 75 75)" style="transition: stroke-dashoffset 1s ease-out;" />
+                                                    <text id="gauge-text" x="75" y="80" text-anchor="middle" font-size="24" font-weight="bold" fill="#ffffff" font-family="'Outfit', sans-serif">0</text>
+                                                    <text x="75" y="105" text-anchor="middle" font-size="12" fill="#94a3b8" font-family="'Outfit', sans-serif">/ 100</text>
+                                                </svg>
+                                            </div>
+                                            <div id="impact-category" class="font-bold text-sm tracking-wider uppercase mt-4 text-[#10b981]">
+                                                Low Impact
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Congestion Risk Level Badge -->
+                                        <div class="bg-[#111827] border border-[#334155] p-6 rounded-xl shadow-sm flex flex-col justify-between">
+                                            <h5 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">📈 Congestion Risk Profile</h5>
+                                            <div id="risk-badge" class="font-black text-center tracking-widest text-2xl py-3 rounded-lg border bg-[#1E293B] border-[#334155] text-white">---</div>
+                                            
+                                            <div class="mt-4 space-y-1.5">
+                                                <div class="flex justify-between text-xs text-slate-400">
+                                                    <span>Prediction Confidence</span>
+                                                    <span id="risk-confidence-val" class="font-bold">0%</span>
+                                                </div>
+                                                <div class="w-full bg-[#1E293B] rounded-full h-2.5 overflow-hidden border border-[#334155]">
+                                                    <div id="risk-progress-bar" class="h-full rounded-full" style="width: 0%;"></div>
+                                                </div>
+                                                <div class="flex justify-between text-[10px] text-slate-400 mt-1">
+                                                    <span>Reliability Indicator:</span>
+                                                    <span id="reliability-indicator" class="font-semibold text-emerald-400 uppercase">Reliable Dispatch</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <!-- Explainable AI -->
+                                        <div class="bg-[#111827] border border-[#334155] p-6 rounded-xl shadow-sm space-y-4">
+                                            <h5 class="text-xs font-bold text-slate-400 uppercase tracking-wider border-b border-[#334155] pb-2"><i class="fa-solid fa-magnifying-glass-chart mr-1.5 text-slate-400"></i>Why this prediction?</h5>
+                                            <div id="explainable-list" class="space-y-2.5">
+                                                <!-- Populated dynamically -->
+                                            </div>
+                                        </div>
+
+                                        <!-- Corridor Geofencing Map Metadata -->
+                                        <div class="bg-[#111827] border border-[#334155] p-6 rounded-xl shadow-sm space-y-3">
+                                            <h5 class="text-xs font-bold text-slate-400 uppercase tracking-wider border-b border-[#334155] pb-2"><i class="fa-solid fa-location-crosshairs mr-1.5 text-slate-400"></i>Corridor Geofencing</h5>
+                                            <div class="space-y-2 text-sm text-slate-300">
+                                                <p class="flex justify-between"><span class="text-slate-400">Corridor:</span> <span id="meta-corridor" class="font-semibold text-white">---</span></p>
+                                                <p class="flex justify-between"><span class="text-slate-400">Patrol Area:</span> <span id="meta-police-station" class="font-semibold text-white">---</span></p>
+                                                <p class="flex justify-between"><span class="text-slate-400">Coordinates:</span> <span id="meta-coords" class="font-semibold text-[#ffd700] font-mono">---</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <!-- Resource Allocation AI Card -->
+                                        <div class="bg-[#111827] border border-[#334155] p-6 rounded-xl shadow-sm space-y-3">
+                                            <h5 class="text-xs font-bold text-slate-400 uppercase tracking-wider border-b border-[#334155] pb-2">
+                                                <i class="fa-solid fa-people-carry-box mr-1.5 text-blue-400"></i>Resource Allocation AI
+                                            </h5>
+                                            <div class="grid grid-cols-3 gap-2 text-center text-sm font-semibold">
+                                                <div class="bg-[#1E293B] p-2.5 rounded-lg border border-[#334155]">
+                                                    <div class="text-xl">👮</div>
+                                                    <div class="text-[10px] text-slate-400 mt-1 uppercase">Officers</div>
+                                                    <div id="res-officers" class="text-base font-bold text-white mt-0.5">--</div>
+                                                </div>
+                                                <div class="bg-[#1E293B] p-2.5 rounded-lg border border-[#334155]">
+                                                    <div class="text-xl">🚧</div>
+                                                    <div class="text-[10px] text-slate-400 mt-1 uppercase">Barricades</div>
+                                                    <div id="res-barricades" class="text-base font-bold text-white mt-0.5">--</div>
+                                                </div>
+                                                <div class="bg-[#1E293B] p-2.5 rounded-lg border border-[#334155]">
+                                                    <div class="text-xl">🔀</div>
+                                                    <div class="text-[10px] text-slate-400 mt-1 uppercase">Diversions</div>
+                                                    <div id="res-diversions" class="text-base font-bold text-white mt-0.5">--</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Congestion Spread Forecast Card -->
+                                        <div class="bg-[#111827] border border-[#334155] p-6 rounded-xl shadow-sm space-y-3">
+                                            <h5 class="text-xs font-bold text-slate-400 uppercase tracking-wider border-b border-[#334155] pb-2">
+                                                <i class="fa-solid fa-arrow-trend-up mr-1.5 text-orange-400"></i>Congestion Spread Forecast
+                                            </h5>
+                                            <div class="text-sm space-y-2">
+                                                <div class="flex justify-between bg-[#1E293B] px-3 py-1.5 rounded border border-[#334155] text-xs">
+                                                    <span class="text-slate-400">Current Junction:</span>
+                                                    <span id="spread-current" class="font-bold text-[#ffd700]">--</span>
+                                                </div>
+                                                <div id="spread-predictions-list" class="space-y-1.5">
+                                                    <!-- Populated dynamically -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Police Action Plan (Decision Support System) -->
+                                    <div class="bg-[#111827] border border-[#334155] p-6 rounded-xl shadow-sm space-y-4">
+                                        <h5 class="text-xs font-bold text-slate-400 uppercase tracking-wider border-b border-[#334155] pb-2"><i class="fa-solid fa-shield-halved mr-1.5 text-slate-400"></i>Decision Support System Action Checklist</h5>
+                                        <div id="police-actions-container" class="space-y-3">
+                                            <!-- Populated dynamically -->
+                                        </div>
+                                    </div>
+
+                                    <!-- Mini Predictor Map -->
+                                    <div class="bg-[#111827] border border-[#334155] p-6 rounded-xl shadow-sm space-y-3">
+                                        <h5 class="text-xs font-bold text-slate-400 uppercase tracking-wider"><i class="fa-solid fa-map-location-dot mr-1.5 text-slate-400"></i>Visual Geolocation & Traffic Spread Map</h5>
+                                        <div id="predictor-map" class="h-64 rounded-lg overflow-hidden border border-[#334155]"></div>
+                                    </div>
+
+                                </div>
+                                
+                                <div id="predictor-placeholder-panel" class="bg-[#111827] border border-dashed border-[#334155] p-16 rounded-xl text-center text-slate-400 shadow-sm">
+                                    <span class="text-6xl block mb-4">🚦</span>
+                                    <p class="font-bold text-slate-300 mb-1">Inference Engine Standby</p>
+                                    <p class="text-sm">Configure simulator values and run traffic prediction to inspect results.</p>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <!-- TAB 3: GEOSPATIAL INTELLIGENCE -->
+                    <div id="tab-map" class="tab-pane hidden space-y-6">
+                        <div class="bg-[#111827] border border-[#334155] p-6 rounded-xl shadow-sm space-y-4">
+                            <div class="flex justify-between items-center flex-wrap gap-4">
+                                <div>
+                                    <h3 class="text-lg font-bold text-slate-200"><i class="fa-solid fa-globe mr-2 text-slate-400"></i>Bengaluru Live Congestion Grid Map</h3>
+                                    <p class="text-xs text-slate-400">Displaying historical clusters & heatmaps from spatial feeds</p>
+                                </div>
+                                <div class="flex gap-3">
+                                    <button onclick="toggleMapLayer('heat')" class="bg-[#1E293B] border border-[#334155] text-slate-300 hover:text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all shadow-sm">Heatmap View</button>
+                                    <button onclick="toggleMapLayer('cluster')" class="bg-[#1E293B] border border-[#334155] text-slate-300 hover:text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all shadow-sm">Marker Clusters</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Main Large Leaflet Map -->
+                            <div id="main-leaflet-map" class="h-[600px] rounded-lg overflow-hidden border border-[#334155] relative">
+                                <!-- Loading overlay -->
+                                <div id="map-loading-overlay" class="absolute inset-0 bg-[#0f172a]/90 flex flex-col items-center justify-center z-[1000] text-center">
+                                    <span class="text-4xl animate-spin text-blue-500 mb-3"><i class="fa-solid fa-circle-notch"></i></span>
+                                    <p class="font-semibold text-slate-300">Rendering Grid Spatial Telemetry...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 4: MOBILITY INSIGHTS -->
+                    <div id="tab-analytics" class="tab-pane hidden space-y-6">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <!-- Most Congested Zones -->
+                            <div class="bg-[#111827] border border-[#334155] p-6 rounded-xl shadow-sm">
+                                <h3 class="text-base font-bold text-slate-200 mb-4"><i class="fa-solid fa-city mr-2 text-slate-400"></i>Most Congested Municipal Zones</h3>
+                                <div id="analytics-zones-chart" class="h-80"></div>
+                            </div>
+                            
+                            <!-- Top Affected Junctions -->
+                            <div class="bg-[#111827] border border-[#334155] p-6 rounded-xl shadow-sm">
+                                <h3 class="text-base font-bold text-slate-200 mb-4"><i class="fa-solid fa-road mr-2 text-slate-400"></i>Top Affected Junctions (Top 10)</h3>
+                                <div id="analytics-junctions-chart" class="h-80"></div>
+                            </div>
+                            
+                            <!-- Hourly Peaks -->
+                            <div class="bg-[#111827] border border-[#334155] p-6 rounded-xl shadow-sm">
+                                <h3 class="text-base font-bold text-slate-200 mb-4"><i class="fa-solid fa-clock-rotate-left mr-2 text-slate-400"></i>Hourly Incident Peak Trends</h3>
+                                <div id="analytics-hourly-chart" class="h-80"></div>
+                            </div>
+
+                            <!-- Weekdays -->
+                            <div class="bg-[#111827] border border-[#334155] p-6 rounded-xl shadow-sm">
+                                <h3 class="text-base font-bold text-slate-200 mb-4"><i class="fa-solid fa-calendar-days mr-2 text-slate-400"></i>Weekly Incident Distribution</h3>
+                                <div id="analytics-weekly-chart" class="h-80"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 5: DECISION SUPPORT SYSTEM SOP PAGE -->
+                    <div id="tab-recommendations" class="tab-pane hidden space-y-6">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <!-- Critical -->
+                            <div class="bg-[#111827] border border-[#334155] p-6 rounded-xl shadow-sm space-y-4">
+                                <div class="flex items-center gap-3 border-b border-[#334155] pb-3">
+                                    <span class="text-2xl p-2 rounded-lg bg-red-950/50 text-red-500"><i class="fa-solid fa-skull-crossbones"></i></span>
+                                    <div>
+                                        <h3 class="text-base font-bold text-slate-200">SOP Level 4: CRITICAL CONGESTION RISK</h3>
+                                        <span class="text-xs text-red-400 font-semibold uppercase tracking-wider">Trigger: Risk Score &gt;= 85</span>
+                                    </div>
+                                </div>
+                                <ul class="space-y-3 text-sm text-slate-300">
+                                    <li class="flex items-start gap-2.5"><span class="text-red-500 mt-0.5"><i class="fa-solid fa-circle-chevron-right"></i></span> <b>Officer Deployment</b>: Deploy a minimum of 25 officers (including 2 patrol inspectors) to manual override locations.</li>
+                                    <li class="flex items-start gap-2.5"><span class="text-red-500 mt-0.5"><i class="fa-solid fa-circle-chevron-right"></i></span> <b>Temporary Road Closure</b>: Set up physical barriers around coordinated bottleneck centers immediately.</li>
+                                    <li class="flex items-start gap-2.5"><span class="text-red-500 mt-0.5"><i class="fa-solid fa-circle-chevron-right"></i></span> <b>Gridlock Signal Override</b>: Force RED phase at incoming junction paths; hold outward lanes open for 90 seconds.</li>
+                                    <li class="flex items-start gap-2.5"><span class="text-red-500 mt-0.5"><i class="fa-solid fa-circle-chevron-right"></i></span> <b>Digital warning signs</b>: Direct variable signs 1.5km and 2km upstream to route traffic away.</li>
+                                </ul>
+                            </div>
+
+                            <!-- High -->
+                            <div class="bg-[#111827] border border-[#334155] p-6 rounded-xl shadow-sm space-y-4">
+                                <div class="flex items-center gap-3 border-b border-[#334155] pb-3">
+                                    <span class="text-2xl p-2 rounded-lg bg-orange-950/50 text-orange-500"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                                    <div>
+                                        <h3 class="text-base font-bold text-slate-200">SOP Level 3: HIGH CONGESTION RISK</h3>
+                                        <span class="text-xs text-orange-400 font-semibold uppercase tracking-wider">Trigger: 60 &lt;= Risk Score &lt; 85</span>
+                                    </div>
+                                </div>
+                                <ul class="space-y-3 text-sm text-slate-300">
+                                    <li class="flex items-start gap-2.5"><span class="text-orange-500 mt-0.5"><i class="fa-solid fa-circle-chevron-right"></i></span> <b>Officer Deployment</b>: Deploy 15 wardens to coordinate bottlenecks at local junctions.</li>
+                                    <li class="flex items-start gap-2.5"><span class="text-orange-500 mt-0.5"><i class="fa-solid fa-circle-chevron-right"></i></span> <b>Lane Management</b>: Clear shoulder lanes and prepare physical warning boards 500m ahead.</li>
+                                    <li class="flex items-start gap-2.5"><span class="text-orange-500 mt-0.5"><i class="fa-solid fa-circle-chevron-right"></i></span> <b>Outflow Signal Priority</b>: Extend green cycle phases on the main corridor line by +15 seconds.</li>
+                                    <li class="flex items-start gap-2.5"><span class="text-orange-500 mt-0.5"><i class="fa-solid fa-circle-chevron-right"></i></span> <b>Diversions</b>: Instruct oncoming flows to take parallel bypasses.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Medium -->
+                            <div class="bg-[#111827] border border-[#334155] p-6 rounded-xl shadow-sm space-y-4">
+                                <div class="flex items-center gap-3 border-b border-[#334155] pb-3">
+                                    <span class="text-2xl p-2 rounded-lg bg-yellow-950/50 text-yellow-500"><i class="fa-solid fa-circle-exclamation"></i></span>
+                                    <div>
+                                        <h3 class="text-base font-bold text-slate-200">SOP Level 2: MEDIUM CONGESTION RISK</h3>
+                                        <span class="text-xs text-yellow-400 font-semibold uppercase tracking-wider">Trigger: 30 &lt;= Risk Score &lt; 60</span>
+                                    </div>
+                                </div>
+                                <ul class="space-y-3 text-sm text-slate-300">
+                                    <li class="flex items-start gap-2.5"><span class="text-yellow-500 mt-0.5"><i class="fa-solid fa-circle-chevron-right"></i></span> <b>Deployment</b>: Place 5 wardens to monitor intersections.</li>
+                                    <li class="flex items-start gap-2.5"><span class="text-yellow-500 mt-0.5"><i class="fa-solid fa-circle-chevron-right"></i></span> <b>Alert signs</b>: Push slow-down warnings to Maps feed.</li>
+                                    <li class="flex items-start gap-2.5"><span class="text-yellow-500 mt-0.5"><i class="fa-solid fa-circle-chevron-right"></i></span> <b>Signal Adjustment</b>: Increase green window by 10% during peak rush hour.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Low -->
+                            <div class="bg-[#111827] border border-[#334155] p-6 rounded-xl shadow-sm space-y-4">
+                                <div class="flex items-center gap-3 border-b border-[#334155] pb-3">
+                                    <span class="text-2xl p-2 rounded-lg bg-emerald-950/50 text-emerald-500"><i class="fa-solid fa-circle-check"></i></span>
+                                    <div>
+                                        <h3 class="text-base font-bold text-slate-200">SOP Level 1: LOW CONGESTION RISK</h3>
+                                        <span class="text-xs text-emerald-400 font-semibold uppercase tracking-wider">Trigger: Risk Score &lt; 30</span>
+                                    </div>
+                                </div>
+                                <ul class="space-y-3 text-sm text-slate-300">
+                                    <li class="flex items-start gap-2.5"><span class="text-emerald-500 mt-0.5"><i class="fa-solid fa-circle-chevron-right"></i></span> <b>Deployment</b>: Deploy 2 patrol officers to verify clearance.</li>
+                                    <li class="flex items-start gap-2.5"><span class="text-emerald-500 mt-0.5"><i class="fa-solid fa-circle-chevron-right"></i></span> <b>Monitoring</b>: Run CCTV tracking cycle.</li>
+                                    <li class="flex items-start gap-2.5"><span class="text-emerald-500 mt-0.5"><i class="fa-solid fa-circle-chevron-right"></i></span> <b>Signal</b>: Maintain standard automated signals.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- TAB 6: RESOURCE ALLOCATION -->
+                <div id="tab-resources" class="tab-pane hidden space-y-6">
+                    <div class="bg-[#0e1729] border border-[#334155] p-8 rounded-xl shadow-lg">
+                        <h2 class="text-xl font-bold text-[#ffd700] mb-2 flex items-center gap-2"><i class="fa-solid fa-user-shield"></i> Tactical Resource Dispatch AI</h2>
+                        <p class="text-xs text-slate-400 mb-6">Real-time patrol deployment and emergency response logistics for Bengaluru Central grid.</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="bg-[#0B1220] border border-[#334155] p-5 rounded-lg text-center">
+                                <div class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">Officers Allocated</div>
+                                <div class="text-4xl font-extrabold text-[#00bfff]"><span id="tab-res-officers">15</span> / 50</div>
+                                <p class="text-[10px] text-slate-500 mt-2">Active patrol units on-road</p>
+                            </div>
+                            <div class="bg-[#0B1220] border border-[#334155] p-5 rounded-lg text-center">
+                                <div class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">Barricades Deployed</div>
+                                <div class="text-4xl font-extrabold text-[#ff9800]"><span id="tab-res-barricades">5</span> / 20</div>
+                                <p class="text-[10px] text-slate-500 mt-2">Diversion control points</p>
+                            </div>
+                            <div class="bg-[#0B1220] border border-[#334155] p-5 rounded-lg text-center">
+                                <div class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">Active Diversions</div>
+                                <div class="text-4xl font-extrabold text-[#8b5cf6]"><span id="tab-res-diversions">2</span> / 10</div>
+                                <p class="text-[10px] text-slate-500 mt-2">Signage and warning nodes</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 bg-[#0B1220] border border-[#334155] p-6 rounded-lg">
+                            <h3 class="text-sm font-bold text-white mb-4">👮 Duty Officer Deployment Log</h3>
+                            <div class="overflow-x-auto text-xs">
+                                <table class="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr class="border-b border-[#334155] text-slate-400">
+                                            <th class="pb-2">Unit ID</th>
+                                            <th class="pb-2">Patrol Route</th>
+                                            <th class="pb-2">Status</th>
+                                            <th class="pb-2">Assigned Junction</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-slate-300 divide-y divide-[#1e293b]/50">
+                                        <tr>
+                                            <td class="py-2.5 font-mono text-emerald-400">PATROL-04</td>
+                                            <td>Bellary Road Segment 1</td>
+                                            <td><span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 text-[10px] font-bold">ON-SCENE</span></td>
+                                            <td>Junction 12 (Hebbal)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2.5 font-mono text-emerald-400">PATROL-09</td>
+                                            <td>Outer Ring Road (ORR North)</td>
+                                            <td><span class="px-2 py-0.5 rounded bg-blue-950 text-blue-400 text-[10px] font-bold">DISPATCHED</span></td>
+                                            <td>Junction 8 (Manyata)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2.5 font-mono text-slate-400">PATROL-12</td>
+                                            <td>MG Road - Residency</td>
+                                            <td><span class="px-2 py-0.5 rounded bg-slate-800 text-slate-400 text-[10px] font-bold">STANDBY</span></td>
+                                            <td>HQ Central Station</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 7: ALERTS & NOTIFICATIONS -->
+                <div id="tab-alerts" class="tab-pane hidden space-y-6">
+                    <div class="bg-[#0e1729] border border-[#334155] p-8 rounded-xl shadow-lg">
+                        <h2 class="text-xl font-bold text-[#ffd700] mb-2 flex items-center gap-2"><i class="fa-solid fa-bell"></i> Live Command Center Alerts</h2>
+                        <p class="text-xs text-slate-400 mb-6">Real-time high severity notifications generated by DROMETRA neural forecasting system.</p>
+                        
+                        <div id="alerts-tab-feed" class="space-y-4 max-h-[500px] overflow-y-auto pr-2">
+                            <!-- Dynamic alerts list will populate here -->
+                            <div class="bg-[#0B1220] border-l-4 border-red-500 p-4 rounded-r-lg">
+                                <div class="flex justify-between items-start">
+                                    <span class="px-2 py-0.5 rounded bg-red-950 text-red-400 text-[10px] font-bold uppercase tracking-wider">CRITICAL SEVERITY</span>
+                                    <span class="text-xs text-slate-500 font-mono">12:35:40</span>
+                                </div>
+                                <h4 class="text-sm font-bold text-white mt-1">Severe Water Logging: Outer Ring Road North</h4>
+                                <p class="text-xs text-slate-400 mt-1">Significant runoff causing lane blockages. Estimated spillover delay: 28 mins.</p>
+                            </div>
+                            <div class="bg-[#0B1220] border-l-4 border-amber-500 p-4 rounded-r-lg">
+                                <div class="flex justify-between items-start">
+                                    <span class="px-2 py-0.5 rounded bg-amber-950 text-amber-400 text-[10px] font-bold uppercase tracking-wider">MODERATE SEVERITY</span>
+                                    <span class="text-xs text-slate-500 font-mono">12:20:15</span>
+                                </div>
+                                <h4 class="text-sm font-bold text-white mt-1">Vehicle Breakdown: Bellary Road Centroid</h4>
+                                <p class="text-xs text-slate-400 mt-1">Broken down transport truck obstructing left lane. Clearance patrol dispatched.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 8: REPORTS & EXPORT -->
+                <div id="tab-export" class="tab-pane hidden space-y-6">
+                    <div class="bg-[#0e1729] border border-[#334155] p-8 rounded-xl shadow-lg">
+                        <h2 class="text-xl font-bold text-[#ffd700] mb-2 flex items-center gap-2"><i class="fa-solid fa-file-pdf"></i> Reports & Data Export Engine</h2>
+                        <p class="text-xs text-slate-400 mb-6">Compile official intelligence briefs, congestion audits, and dispatch records for City Authorities.</p>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <div class="lg:col-span-2 bg-[#0B1220] border border-[#334155] p-6 rounded-lg space-y-4">
+                                <h3 class="text-sm font-bold text-white">📋 Report Metadata Configuration</h3>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Target Authority</label>
+                                        <select class="w-full bg-[#1E293B] border border-[#334155] rounded px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500">
+                                            <option>Bengaluru Traffic Police (BTP) HQ</option>
+                                            <option>Bruhat Bengaluru Mahanagara Palike (BBMP)</option>
+                                            <option>Bengaluru Smart City Command Center</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Classification Level</label>
+                                        <select class="w-full bg-[#1E293B] border border-[#334155] rounded px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500">
+                                            <option>RESTRICTED - OFFICIAL USE ONLY</option>
+                                            <option>PUBLIC INTELLIGENCE DISCLOSURE</option>
+                                            <option>INTERNAL DEPLOYMENT LOG</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-4 pt-4 border-t border-[#334155] flex justify-between items-center">
+                                    <div class="text-xs text-slate-400">
+                                        <i class="fa-solid fa-circle-info text-blue-400 mr-1.5"></i> PDF includes ML model parameters, zone health summaries, and tactical checklists.
+                                    </div>
+                                    <button onclick="downloadPDF()" class="bg-[#2563EB] hover:bg-[#1d4ed8] text-white text-xs font-bold px-5 py-2.5 rounded shadow flex items-center gap-2 transition-all duration-200">
+                                        <i class="fa-solid fa-file-arrow-down"></i> Export Incident Report (PDF)
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-[#0B1220] border border-[#334155] p-6 rounded-lg flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-sm font-bold text-white mb-2">📊 Report Statistics Summary</h3>
+                                    <p class="text-xs text-slate-400">Auto-collated metrics for the active telemetry cycle.</p>
+                                    
+                                    <ul class="mt-4 space-y-2 text-xs text-slate-300">
+                                        <li class="flex justify-between"><span>Active Incidents:</span> <span id="export-kpi-active" class="font-bold text-white">---</span></li>
+                                        <li class="flex justify-between"><span>Avg Impact Severity:</span> <span id="export-kpi-avg" class="font-bold text-white">---</span></li>
+                                        <li class="flex justify-between"><span>Max Response Savings:</span> <span class="font-bold text-emerald-400">-15 Mins</span></li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="mt-6 border-t border-[#334155] pt-4 text-center">
+                                    <span class="text-[10px] text-slate-500 font-mono">MD5 Hash: SHA-256 Validated</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+        
+    </div>
+
+    <!-- Script File link -->
+    <script src="/static/js/script.js"></script>
+</body>
+</html>

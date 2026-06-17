@@ -1,0 +1,208 @@
+/* Bengaluru-Inspired Dark Theme Style Sheet - Drometra */
+
+body {
+    background-color: #0B1220 !important;
+    color: #F8FAFC !important;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #071224;
+}
+::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 12px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+}
+
+/* Card Styling - Dark Theme */
+.kpi-card {
+    background-color: #111827 !important;
+    border: 1px solid #334155 !important;
+    color: #F8FAFC !important;
+    border-radius: 12px !important;
+    transition: all 0.25s ease-in-out;
+    border-left: 4px solid #2563EB !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -2px rgba(0, 0, 0, 0.2);
+}
+
+.kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+    border-left-color: #2563EB !important;
+}
+
+/* Specific left border overrides to give a premium feel */
+.kpi-card:nth-child(1) { border-left-color: #2563EB !important; } /* Total Reports */
+.kpi-card:nth-child(2) { border-left-color: #EF4444 !important; } /* High Severity (Critical Alert) */
+.kpi-card:nth-child(3) { border-left-color: #F59E0B !important; } /* Active Live (Moderate Congestion) */
+.kpi-card:nth-child(4) { border-left-color: #10B981 !important; } /* Road Closures (Normal Traffic) */
+.kpi-card:nth-child(5) { border-left-color: #8B5CF6 !important; } /* Avg Impact (Event Impact Score) */
+.kpi-card:nth-child(6) { border-left-color: #F97316 !important; } /* Congestion Index */
+
+/* Active Sidebar styling override */
+button.bg-\[\#1e293b\] {
+    background-color: #1E293B !important;
+    border-left: 4px solid #2563EB !important;
+    color: #FFFFFF !important;
+}
+
+/* Leaflet Container style overrides - Dark Map styling */
+.leaflet-container {
+    background: #0B1220 !important;
+}
+
+.leaflet-bar {
+    border: 1px solid #334155 !important;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3) !important;
+}
+
+.leaflet-bar a {
+    background-color: #111827 !important;
+    color: #CBD5E1 !important;
+    border-bottom: 1px solid #334155 !important;
+}
+
+.leaflet-bar a:hover {
+    background-color: #1E293B !important;
+    color: #FFFFFF !important;
+}
+
+.leaflet-popup-content-wrapper {
+    background: #111827 !important;
+    color: #F8FAFC !important;
+    border: 1px solid #334155 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4) !important;
+}
+
+.leaflet-popup-tip {
+    background: #111827 !important;
+}
+
+/* Custom Marker Cluster Styling - Dark Theme */
+.marker-cluster-small {
+    background-color: rgba(16, 185, 129, 0.2) !important;
+}
+.marker-cluster-small div {
+    background-color: rgba(16, 185, 129, 0.6) !important;
+    color: #fff !important;
+}
+
+.marker-cluster-medium {
+    background-color: rgba(245, 158, 11, 0.2) !important;
+}
+.marker-cluster-medium div {
+    background-color: rgba(245, 158, 11, 0.6) !important;
+    color: #fff !important;
+}
+
+.marker-cluster-large {
+    background-color: rgba(239, 68, 68, 0.2) !important;
+}
+.marker-cluster-large div {
+    background-color: rgba(239, 68, 68, 0.6) !important;
+    color: #fff !important;
+}
+
+/* Recommendation Checklist Cards (SOPs) */
+.rec-item {
+    background: #111827;
+    border: 1px solid #334155;
+    border-left: 5px solid #2563EB;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+    transition: all 0.2s ease;
+}
+.rec-item:hover {
+    transform: translateX(3px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Risk level styling - official badges */
+.risk-low {
+    background-color: rgba(34, 197, 94, 0.15);
+    border: 1px solid #22C55E;
+    color: #22C55E;
+    padding: 10px 15px;
+    border-radius: 12px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+.risk-medium {
+    background-color: rgba(250, 204, 21, 0.15);
+    border: 1px solid #FACC15;
+    color: #FACC15;
+    padding: 10px 15px;
+    border-radius: 12px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+.risk-high {
+    background-color: rgba(249, 115, 22, 0.15);
+    border: 1px solid #F97316;
+    color: #F97316;
+    padding: 10px 15px;
+    border-radius: 12px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+.risk-critical {
+    background-color: rgba(220, 38, 38, 0.2);
+    border: 2px solid #DC2626;
+    color: #DC2626;
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-weight: 800;
+    text-align: center;
+    font-size: 22px;
+    letter-spacing: 1px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.75; }
+    100% { opacity: 1; }
+}
+
+/* Fade-in transition */
+.fade-in {
+    animation: fadeInAnimation 0.35s ease-out forwards;
+}
+
+@keyframes fadeInAnimation {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Leaflet Polyline Route Flow animation */
+@keyframes routeFlow {
+    to {
+        stroke-dashoffset: -40;
+    }
+}
+.animated-polyline {
+    stroke-dasharray: 8, 12;
+    animation: routeFlow 2s linear infinite !important;
+}

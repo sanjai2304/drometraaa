@@ -1,0 +1,740 @@
+=== DATASET SHAPE ===
+Rows: 8173, Columns: 46
+
+=== COLUMN INFO ===
+Duplicate rows: 0
+
+                      Data Type  Missing Values   Missing %
+id                       object               0    0.000000
+event_type               object               0    0.000000
+latitude                float64               0    0.000000
+longitude               float64               0    0.000000
+endlatitude             float64             169    2.067784
+endlongitude            float64             169    2.067784
+address                  object               3    0.036706
+end_address              object            7486   91.594274
+event_cause              object               0    0.000000
+requires_road_closure      bool               0    0.000000
+start_datetime           object               0    0.000000
+end_datetime             object            7683   94.004649
+status                   object               0    0.000000
+authenticated            object               0    0.000000
+modified_datetime        object               0    0.000000
+map_file                float64            8173  100.000000
+direction                object            8130   99.473877
+description              object            1360   16.640157
+veh_type                 object            3286   40.205555
+veh_no                   object            3287   40.217790
+corridor                 object              20    0.244708
+priority                 object               2    0.024471
+cargo_material           object            7897   96.623027
+reason_breakdown         object            7897   96.623027
+age_of_truck            float64            7897   96.623027
+created_date             object               0    0.000000
+route_path               object            8036   98.323749
+client_id                 int64               0    0.000000
+created_by_id            object               2    0.024471
+last_modified_by_id      object               3    0.036706
+assigned_to_police_id    object            8045   98.433868
+citizen_accident_id      object            8045   98.433868
+comment                 float64            8173  100.000000
+police_station           object               0    0.000000
+meta_data               float64            8173  100.000000
+kgid                     object             259    3.168971
+resolved_at_address      object            8099   99.094580
+resolved_at_latitude    float64            8099   99.094580
+resolved_at_longitude   float64            8099   99.094580
+closed_by_id             object            5032   61.568579
+closed_datetime          object            5032   61.568579
+resolved_by_id           object            8099   99.094580
+resolved_datetime        object            8099   99.094580
+gba_identifier           object            4729   57.861250
+zone                     object            4729   57.861250
+junction                 object            5663   69.289123
+
+=== SAMPLE DATA ===
+           id event_type   latitude  longitude        event_cause priority    status              start_datetime      corridor  police_station
+0  FKID000000  unplanned  13.040004  77.518099  vehicle_breakdown     High    closed  2024-03-07 17:01:48.111+00   Tumkur Road          Peenya
+1  FKID000001  unplanned  12.921876  77.645158  vehicle_breakdown     High  resolved  2024-01-30 04:07:24.173+00    ORR East 1      HSR Layout
+2  FKID000002  unplanned  12.955622  77.585708             others      Low    closed  2023-11-11 06:18:03.343+00  Non-corridor   Wilson Garden
+3  FKID000003  unplanned  13.006147  77.579435          tree_fall      Low    closed  2024-03-07 17:56:55.061+00  Non-corridor  Sadashivanagar
+4  FKID000004  unplanned  12.953980  77.585233  vehicle_breakdown      Low    closed  2024-01-30 04:56:32.348+00  Non-corridor   Wilson Garden
+
+=== VALUE COUNTS FOR ALL CATEGORICALS ===
+
+Value counts for id (Unique values: 8173):
+id
+FKID000000    1
+FKID005444    1
+FKID005457    1
+FKID005456    1
+FKID005455    1
+FKID005454    1
+FKID005453    1
+FKID005452    1
+FKID005451    1
+FKID005450    1
+FKID005449    1
+FKID005448    1
+FKID005447    1
+FKID005446    1
+FKID005445    1
+FKID005443    1
+FKID005459    1
+FKID005442    1
+FKID005441    1
+FKID005440    1
+
+Value counts for event_type (Unique values: 2):
+event_type
+unplanned    7706
+planned       467
+
+Value counts for address (Unique values: 3089):
+address
+Outer Ring Road, Karthik Nagar, Marathahalli, Bengaluru, Karnataka. Pin-560037 (India)                                  88
+2nd Cross Road, MTB Area, Jayanagar, Bengaluru, Karnataka. Pin-560041 (India)                                           44
+Sankey Road, RV Layout, Seshadripuram, Bengaluru, Karnataka. Pin-560020 (India)                                         36
+MBT Road, Block 5 Stage 1, HBR Layout, Bengaluru, Karnataka. Pin-560043 (India)                                         35
+Sankey Road, MD Nanjundaswamy Circle, Rajamahal Guttahalli, Bengaluru, Karnataka. Pin-560003 (India)                    34
+Bellary Road, Vinayaka Nagar, Hebbal, Bengaluru, Karnataka. Pin-560024 (India)                                          33
+Outer Ring Road, Abdul Patel Syed Layout, Bhoopasandra, RMV Stage 2, Bengaluru, Karnataka. Pin-560094 (India)           33
+Outer Ring Road, Renaissance Reserva, Muthyala Nagar, Bengaluru, Karnataka. Pin-560054 (India)                          29
+Old Madras Road, New Binnamangla, Indiranagar, Bengaluru, Karnataka. Pin-560038 (India)                                 29
+Bhashyam Main Road, Sangolli Rayanna Circle, Majestic, Bengaluru, Karnataka. Pin-560023 (India)                         29
+Mysore Road, PMM Compound, Old Guddadahalli, Bengaluru, Karnataka. Pin-560026 (India)                                   27
+Bellary Road, Embassy One, Ganga Nagar, Bengaluru, Karnataka. Pin-560032 (India)                                        26
+Bellary Road, Concorde Mayfair, KHB Colony, Yelahanka, Bengaluru, Karnataka. Pin-560064 (India)                         25
+Outer Ring Road, CQAE Staff Quarters, Yeshwanthpur, Bengaluru, Karnataka. Pin-560022 (India)                            24
+Bellary Road, Esteem Mall, Hebbal Kempapura, Bengaluru, Karnataka. Pin-560024 (India)                                   23
+1st Cross Road, Koramangala Water Tank Junction, Koramangala, Bengaluru, Karnataka. Pin-560034 (India)                  23
+Mysore Road, AR Compound, Chamarajpet, Bengaluru, Karnataka. Pin-560018 (India)                                         22
+Magadi Main Road, Sunkadakatte, Bengaluru, Karnataka. Pin-560091 (India)                                                22
+Mumbai Bengaluru Highway, Nadaprabhu Kempegowda Circle, Madanaiyakanahalli, Bengaluru, Karnataka. Pin-562162 (India)    22
+Bellary Road, Enayathulla Mehkri Circle, Sadashiva Nagar, Bengaluru, Karnataka. Pin-560080 (India)                      22
+
+Value counts for end_address (Unique values: 561):
+end_address
+Varthuru Road, Deja View Homes, Nagavara Palya, CV Raman Nagar, Bengaluru, Karnataka. Pin-560093 (India)       6
+Outer Ring Road, CQAE Staff Quarters, Yeshwanthpur, Bengaluru, Karnataka. Pin-560022 (India)                   6
+Kankanagar Main Road, Lawrence Layout, Nagavara, Bengaluru, Karnataka. Pin-560045 (India)                      4
+MBT Road, Zero Tolerance Junction, KR Puram, Bengaluru, Karnataka. Pin-560049 (India)                          4
+Cubbon Park Road, Krishna Rajendra Circle, Gandhi Nagar, Bengaluru, Karnataka. Pin-560001 (India)              4
+Padmabhushan Dr RK Srikantan Road, VV Giri Colony, Seshadripuram, Bengaluru, Karnataka. Pin-560020 (India)     4
+Hennur Main Road, Geddalahalli, Bengaluru, Karnataka. Pin-560077 (India)                                       4
+Bellary Road, Esteem Mall, Hebbal Kempapura, Bengaluru, Karnataka. Pin-560024 (India)                          4
+Bhashyam Main Road, Sangolli Rayanna Circle, Majestic, Bengaluru, Karnataka. Pin-560023 (India)                4
+Silk Board Double Decker Flyover, Silk Board Junction, HSR Layout, Bengaluru, Karnataka. Pin-560102 (India)    3
+Anna Basavanna Road, RV Layout, Seshadripuram, Bengaluru, Karnataka. Pin-560020 (India)                        3
+MBT Road, YSM Layout, KR Puram, Bengaluru, Karnataka. Pin-560036 (India)                                       3
+VP Deenadayalu Naidu Road, Binny Crescent Apartments, Benson Town, Bengaluru, Karnataka. Pin-560046 (India)    3
+Hosur Road, Lakkasandra, Bengaluru, Karnataka. Pin-560030 (India)                                              3
+Dinnur Main Road, Southern Residency Apartment, Sultanpalya, Bengaluru, Karnataka. Pin-560032 (India)          3
+Binny Mill Main Road, Railway Quarters, Subhash Nagar, Sevashrama, Bengaluru, Karnataka. Pin-560023 (India)    3
+Hebbal Flyover, Hebbal Junction, Hebbal, Bengaluru, Karnataka. Pin-560024 (India)                              3
+Nrupatunga Road, Krishna Rajendra Circle, Gandhi Nagar, Bengaluru, Karnataka. Pin-560001 (India)               3
+HAL Airport Road, Marathahalli, Bengaluru, Karnataka. Pin-560037 (India)                                       3
+Palace Road, Gandhi Nagar 1, Gandhi Nagar, Bengaluru, Karnataka. Pin-560001 (India)                            3
+
+Value counts for event_cause (Unique values: 17):
+event_cause
+vehicle_breakdown       4896
+others                   638
+pot_holes                537
+construction             480
+water_logging            458
+accident                 365
+tree_fall                284
+road_conditions          170
+congestion               136
+public_event              84
+procession                72
+vip_movement              20
+protest                   15
+Debris                    12
+test_demo                  3
+Fog / Low Visibility       2
+debris                     1
+
+Value counts for requires_road_closure (Unique values: 2):
+requires_road_closure
+False    7497
+True      676
+
+Value counts for start_datetime (Unique values: 8060):
+start_datetime
+2024-01-16 23:18:15.118206+00    52
+2024-03-17 22:05:46+00           15
+2024-04-06 08:13:39.437+00        8
+2023-11-12 10:00:46.584+00        3
+2024-01-19 12:05:46+00            3
+2024-02-18 08:05:46+00            3
+2024-04-06 08:19:03.293+00        2
+2024-01-27 20:05:46+00            2
+2024-03-23 05:38:59.941+00        2
+2024-03-29 07:26:12.353+00        2
+2023-11-26 10:42:59.612+00        2
+2023-12-08 09:36:30.337+00        2
+2024-01-07 18:05:46+00            2
+2024-03-29 07:25:30.507+00        2
+2023-11-22 18:59:03.972+00        2
+2024-04-01 22:22:35.313+00        2
+2024-02-03 22:05:46+00            2
+2024-04-04 19:05:46+00            2
+2023-12-21 05:28:55.499+00        2
+2024-02-18 01:16:36.038+00        2
+
+Value counts for end_datetime (Unique values: 459):
+end_datetime
+2024-03-18 03:05:46+00    9
+2024-03-03 20:05:46+00    5
+2024-01-22 11:35:46+00    4
+2024-02-19 07:05:46+00    3
+2024-01-07 22:05:46+00    2
+2026-11-09 11:35:46+00    2
+2024-02-10 12:05:46+00    2
+2024-01-07 02:05:46+00    2
+2024-02-21 10:05:46+00    2
+2023-12-08 06:05:46+00    2
+2024-01-13 00:05:46+00    2
+2024-03-15 23:05:46+00    2
+2024-01-15 09:35:46+00    2
+2023-11-26 11:35:46+00    2
+2023-12-30 06:05:46+00    2
+2023-12-10 06:05:46+00    2
+2023-11-12 05:05:46+00    2
+2024-04-05 00:05:46+00    2
+2023-12-18 05:29:46+00    1
+2023-12-20 04:30:46+00    1
+
+Value counts for status (Unique values: 3):
+status
+closed      7095
+active      1007
+resolved      71
+
+Value counts for authenticated (Unique values: 2):
+authenticated
+yes    7166
+no     1007
+
+Value counts for modified_datetime (Unique values: 8173):
+modified_datetime
+2024-03-07 19:35:47.871698+00    1
+2024-03-21 21:07:43.940877+00    1
+2023-12-23 09:35:47.75249+00     1
+2023-12-22 20:53:24.909681+00    1
+2023-12-22 22:35:48.110382+00    1
+2023-12-23 19:27:18.113057+00    1
+2023-12-22 09:17:25.256811+00    1
+2023-12-22 10:35:47.573214+00    1
+2023-12-22 07:45:48.440006+00    1
+2023-12-22 08:35:47.699658+00    1
+2023-12-22 07:08:54.964766+00    1
+2023-12-22 07:35:47.918014+00    1
+2023-12-22 09:42:05.672777+00    1
+2023-12-22 00:35:48.061982+00    1
+2023-12-21 23:46:36.240156+00    1
+2023-12-22 01:35:47.945687+00    1
+2023-12-23 09:35:47.764977+00    1
+2023-12-22 22:35:48.093329+00    1
+2023-12-22 00:35:48.037079+00    1
+2023-12-21 23:35:47.983311+00    1
+
+Value counts for direction (Unique values: 8):
+direction
+south_west    12
+north_west    10
+west           8
+south          7
+north          2
+north_east     2
+east           1
+south_east     1
+
+Value counts for description (Unique values: 5542):
+description
+Starting problem                                                                                                               80
+starting problem                                                                                                               58
+[PERSON]                                                                                                                       42
+Vehicle breakdown                                                                                                              29
+Vehicle break down                                                                                                             28
+[LOCATION] towards marathhalli and karthiknagara towards mahadevpura traffic movement will be slow due to metrostation work    27
+KRIDE WORK AT [LOCATION] to bhadrapp layout sir traffic slow moving sir                                                        27
+Potholes                                                                                                                       24
+break down                                                                                                                     24
+tree fall                                                                                                                      21
+Breakdown                                                                                                                      19
+Break down                                                                                                                     19
+[LOCATION] work                                                                                                                18
+.                                                                                                                              17
+breakdown                                                                                                                      17
+Road Restriction for PM Visit                                                                                                  15
+vehicle breakdown                                                                                                              15
+Vehicle starting problem                                                                                                       15
+vehicle break down                                                                                                             13
+bad road                                                                                                                       13
+
+Value counts for veh_type (Unique values: 10):
+veh_type
+bmtc_bus         1466
+heavy_vehicle     965
+lcv               678
+others            449
+private_bus       359
+private_car       345
+truck             276
+ksrtc_bus         217
+taxi               95
+auto               37
+
+Value counts for veh_no (Unique values: 4212):
+veh_no
+FKN00GL0784    7
+FKN00GL2302    5
+FKN00GL0740    5
+FKN00GL1676    5
+FKN00GL3436    4
+FKN00GL2890    4
+FKN00GL2926    4
+FKN00GL0599    4
+FKN00GL0596    4
+FKN00GL3753    4
+FKN00GL1435    4
+FKN00GL2505    4
+FKN00GL0717    4
+FKN00GL0482    4
+FKN00GL2544    4
+FKN00GL1989    4
+FKN00GL1062    4
+FKN00GL0392    4
+FKN00GL3573    4
+FKN00GL2206    4
+
+Value counts for corridor (Unique values: 22):
+corridor
+Non-corridor             3124
+Mysore Road               743
+Bellary Road 1            610
+Tumkur Road               458
+Bellary Road 2            379
+Hosur Road                298
+ORR North 1               275
+Old Madras Road           263
+Magadi Road               245
+ORR East 1                244
+ORR North 2               235
+Bannerghata Road          209
+ORR East 2                187
+West of Chord Road        174
+ORR West 1                168
+CBD 2                     104
+Hennur Main Road           96
+IRR(Thanisandra road)      95
+Varthur Road               77
+Old Airport Road           76
+
+Value counts for priority (Unique values: 2):
+priority
+High    5030
+Low     3141
+
+Value counts for cargo_material (Unique values: 138):
+cargo_material
+Goods             23
+goods             20
+Goods carried     18
+goods carried     13
+Yes               11
+No                 9
+Materials          8
+Empty              7
+empty              7
+goods carrier      5
+materials          5
+emty               5
+Material           5
+Goods carrier      3
+Cement             3
+ಗೂಡ್ಸ್ ವೆಹಿಕಲ್     2
+Patato             2
+good carrid        2
+Empty vehicle      2
+cement             2
+
+Value counts for reason_breakdown (Unique values: 193):
+reason_breakdown
+Starting problem        22
+starting problem        11
+Breakdown                8
+breakdown                6
+break down               5
+Puncher                  5
+Tire burst               4
+Tyre brust               4
+mechanical problem       4
+Diesel empty             3
+Tyre puncture            3
+brek down                3
+Gear problem             3
+tyre blast               2
+Tyre blast               2
+clutch plate problem     2
+puncture                 2
+bairing problem          2
+.                        2
+Break down               2
+
+Value counts for created_date (Unique values: 8172):
+created_date
+2023-06-29 04:05:46+00           2
+2024-03-07 17:03:51.164032+00    1
+2023-12-22 22:15:05.65869+00     1
+2023-12-22 21:00:24.393788+00    1
+2023-12-22 20:30:07.158754+00    1
+2023-12-22 19:51:52.481558+00    1
+2023-12-22 19:25:20.558265+00    1
+2023-12-22 09:12:31.195527+00    1
+2023-12-22 07:50:33.125396+00    1
+2023-12-22 06:56:44.116363+00    1
+2023-12-22 06:31:45.935396+00    1
+2023-12-22 05:49:57.482349+00    1
+2023-12-22 05:09:35.957292+00    1
+2023-12-22 03:01:17.822733+00    1
+2023-12-22 00:20:38.257145+00    1
+2023-12-21 23:36:24.733817+00    1
+2023-12-22 01:52:15.380775+00    1
+2023-12-21 22:45:45.279034+00    1
+2023-12-21 22:17:53.027502+00    1
+2023-12-21 21:39:48.226077+00    1
+
+Value counts for route_path (Unique values: 83):
+route_path
+[]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              51
+[[12.985061030406605,77.57213473320009],[12.985227448601922,77.57209718227388],[12.985687067800164,77.57217764854433],[12.98619891545208,77.5721722841263],[12.98724349922482,77.57218301296236],[12.988120946199613,77.5721722841263],[12.988648457472479,77.57205963134766],[12.989259533487099,77.57191479206087],[12.989560594898055,77.57189333438875]]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     2
+[[12.917474379925421,77.57394790649415],[12.916956686174556,77.57360458374025],[12.915760711773572,77.57356166839601],[12.914465055561982,77.57343292236328],[12.913712735968987,77.57334709167482],[12.912542456544706,77.57300376892091],[12.91170653931503,77.57283210754396],[12.910745231044606,77.5728750228882],[12.910034696468443,77.57291793823244],[12.908906196225654,77.57296085357667],[12.90800771195786,77.57303595542909],[12.907328517100298,77.57314324378969],[12.906440265131732,77.57317543029787]]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        2
+[[12.988724579319346,77.57410490641826],[12.98874026251143,77.57414783687544],[12.988301132759055,77.57422833148267],[12.987893368722464,77.57430882608988],[12.987752219476935,77.57421759886837],[12.987726080718938,77.57398684766096],[12.987673803194753,77.57366486923205],[12.98766334768861,77.57344485063898],[12.987647664428549,77.57322483204587],[12.987652892181996,77.5730960406743],[12.987631981167484,77.57293505145982],[12.987611070151193,77.57265600348815],[12.987590159133143,77.57251111319509],[12.987584931378374,77.57233939136634],[12.987584931378374,77.57230719352347]]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          2
+"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                2
+[[12.990370892166421,77.48735560259398],[12.99038176503781,77.48733944337158],[12.990507229709584,77.48780094578635],[12.99062746662721,77.48828391342974],[12.990721565043891,77.48870248538732],[12.990768614238862,77.48906739427343],[12.990522912789102,77.48962012390976],[12.990491546629071,77.48982940988856],[12.990454952770696,77.49020505138894],[12.990428814297143,77.49051629720358],[12.99040267582084,77.49091877023972],[12.990313804980792,77.49132660958301],[12.990188340211326,77.49171298369772],[12.990057647675716,77.49212082304102],[12.989974004416842,77.49240523731986],[12.989858994889875,77.49263598852728],[12.989707391341165,77.49265745375588],[12.989519193703693,77.49265208744873],[12.989127114834286,77.49263598852728],[12.988907550397084,77.49261452329868],[12.988583431111262,77.49260915699153],[12.988107706877466,77.49258769176294],[12.987433327006881,77.49253939499859],[12.98770517027573,77.49268428906986],[12.987987468740071,77.49269502168413],[12.988583431111262,77.49272185321988],[12.989085293051678,77.49274331844848],[12.98981717323051,77.49275941736991],[12.990005370642212,77.49264135861267],[12.990068103081098,77.4924911020125],[12.99012038010137,77.49234084541234],[12.990183112511211,77.49218522250501],[12.990230161808187,77.49195983760478],[12.990329488072524,77.49161102764013],[12.99043404199208,77.49118172306822],[12.990528140482054,77.49084901202504],[12.990559506637428,77.49044117268173],[12.990590872788884,77.49013529317426],[12.990601328171824,77.48978111690245],[12.99088362334462,77.48911032850886],[12.99088362334462,77.48902983390165],[12.990852257230136,77.4889278740658],[12.990831346484967,77.48870785547273],[12.990784297301893,77.48858979671544],[12.99071110966604,77.48834294658663],[12.990658832770064,77.48799413662195],[12.990502002016198,77.48748970375],[12.990491546629071,77.48739847652845],[12.99038699273374,77.48741994175705],[12.987453820554023,77.49266824667113]]                                                                                                                                                                  1
+<svg><animate onbegin=alert(ptk_xss_3) attributeName=x dur=1s>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   1
+[[12.98270767774825,77.57672935350239],[12.982749918096394,77.57671773882045],[12.982295094158665,77.57658894744887],[12.981751395485713,77.5765782148346],[12.981479545703188,77.57665870944183],[12.981333164927916,77.57673383774188],[12.981218151401146,77.57678213450623],[12.981019491547732,77.57686262911345],[12.980967212612537,77.5768357975777],[12.980663994571644,77.57687336172776],[12.980721083974464,77.57686887748827]]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      1
+[[12.920808648182808,77.73643040942174],[12.92078830234584,77.73642253640475],[12.920505927710828,77.73643863532618],[12.920260156935282,77.7364708331691],[12.920061448471872,77.7364708331691],[12.91981567725896,77.73650303101196],[12.9195855933511,77.73652986254771],[12.919439176208472,77.73652449624056],[12.919381655164678,77.736395704869],[12.919747697944599,77.73639033856188],[12.920406573596651,77.73634204179753],[12.920741239928859,77.73633667549038],[12.920772614874497,77.73645473424766],[12.91918760439918,77.73654846817904]]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       1
+<><img src=x onerror=window.postMessage({"ptk":".d3g53g6ki3d"})>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1
+[[12.993785627127,77.58500933647157],[12.993712352608545,77.5846713781357],[12.993273639385581,77.58401155471803],[12.99214029330538,77.5833034515381],[12.991176803471813,77.5826758146286],[12.989902430858917,77.58190870285036],[12.988706394876605,77.58115231990816],[12.987303683297599,77.58028328418733],[12.986511798903342,77.579682469368]]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          1
+<img src=x onerror=window.postMessage({"ptk":".gyet16udvif"})>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   1
+</noscript><script>alert(ptk_xss_2)</script>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1
+<script>alert(ptk_xss_1)</script>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                1
+[[12.858496742031125,77.70843889125528],[12.858513129862988,77.70850614653838],[12.858722348085921,77.70800171366639],[12.858785113518799,77.70765827000886],[12.858915874786858,77.70727726220133],[12.859161705786398,77.70690698700805],[12.859386614787853,77.70652061289336],[12.859632445326314,77.70618253554301],[12.859878275624009,77.70593031910703],[12.860186870763227,77.70587128972839],[12.860641917140617,77.70582835927122],[12.86104465864838,77.70583372557833],[12.861379404344804,77.70575859727826],[12.861484012283357,77.70559760806378],[12.861473551491452,77.70534002532067],[12.861478781887481,77.70502341319889],[12.861452629906367,77.7046907021557],[12.861363713150253,77.70458337601274],[12.86119110994552,77.70452434663406],[12.86088251604117,77.70438482264821],[12.860589613001258,77.70426676389093],[12.860401318009385,77.70419163559087],[12.860087492708963,77.70405747791213],[12.859747514857347,77.70391258761914],[12.859553988797648,77.70382672670475],[12.859245392880249,77.70362280703314],[12.85920877978014,77.70369793533321],[12.85939707566674,77.7038642908548],[12.859893991790342,77.7041057538962],[12.86035949953752,77.70429357464637],[12.860788393551582,77.70445456386082],[12.86109175716771,77.70457262261813],[12.861295742841326,77.70467458245393],[12.861358507630639,77.70481410643981],[12.861358507630639,77.70501265980428],[12.861363738029022,77.70560295359064],[12.861348046833477,77.70566734927644],[12.860913923368253,77.70572637865506],[12.86050072081821,77.70574784388366],[12.860186895642086,77.70576394280509],[12.859998600348073,77.70583907110519],[12.859758000600094,77.70587663525522],[12.859637700639624,77.7059839613982],[12.859554013676583,77.70611275276977],[12.859323874384362,77.70642399858441],[12.859172191553649,77.70669231394182],[12.858826982010994,77.70716991527806],[12.858779907945676,77.7073309044925],[12.85871191205794,77.70762068507855],[12.858628224786234,77.70792119827888],[12.858528846114815,77.7082002462506],[12.858413776025074,77.70838270069363],[12.858534076572191,77.70847929422233],[12.859260387751245,77.70364141266441]]     1
+|/bin/cat /etc/passwd                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            1
+[[12.905724743520379,77.5427806377411],[12.905740139785605,77.54277527332307],[12.905625173272371,77.54298985004426],[12.905410917356692,77.54309713840486],[12.905259370378639,77.5431936979294],[12.905102597546083,77.54333317279817],[12.90488834118263,77.54354238510133],[12.904700213492642,77.54374086856843],[12.904485956784445,77.54399836063386],[12.904229893648493,77.5441485643387],[12.903968604463987,77.54433095455171],[12.903806605032488,77.54444360733034],[12.903508734836208,77.54454016685487],[12.903367638303603,77.54456162452699],[12.90308021919467,77.54456162452699],[12.902515831619716,77.54447042942049],[12.902061185147053,77.54437386989595],[12.901588700836108,77.54415929317476],[12.901201988662372,77.54405736923219],[12.900799598333405,77.5439500808716],[12.900412133529864,77.54386961460115],[12.900009741930367,77.54378378391267],[12.899722318962988,77.54378378391267],[12.899393088612827,77.54377305507661],[12.899095213160745,77.54378378391267],[12.898765944098843,77.54393398761749]]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                1
+[[12.998395416624733,77.66370534896852],[12.99848484619066,77.66371071338655],[12.999733332280798,77.6636677980423],[13.001937756820027,77.66357123851778],[13.003713819217753,77.66344249248506],[13.004659306073256,77.66335129737855],[13.004993621005163,77.66331911087038],[13.006059246843746,77.66313135623933],[13.007636782572499,77.6628738641739],[13.00857180729165,77.66276657581331],[13.00820615558655,77.66279876232149],[13.009532946345445,77.66269147396089],[13.011167918895021,77.6625680923462],[13.012635728517822,77.66251444816591],[13.012903054270474,77.6624768972397]]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              1
+[[12.856829571591815,77.58884114410148],[12.856813790208411,77.58881431445485],[12.856604570394744,77.58880358184055],[12.85614951669798,77.5887660176905],[12.855548007672127,77.58866942416186],[12.854862808678117,77.58859966216892],[12.854167146717808,77.58851380125452],[12.853529019014221,77.58842794034015],[12.853215185122473,77.58841720772583],[12.852843814510548,77.58836354465437],[12.852854275662073,77.58853526648313],[12.85330410476494,77.588567464326],[12.854120071778677,77.58868552308329],[12.854805272799643,77.58877138399767],[12.855291712084115,77.58883041337629],[12.85554795395537,77.58883580046376],[12.856050083328618,77.58890019614952],[12.856505137205628,77.58894312660672],[12.856818966985047,77.58896459183532],[12.85680850599872,77.58881970154232],["12.852956","77.588376"]]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1
+[[13.053302005925023,77.55094528198244],[13.053297695142195,77.55095064640045],[13.052853769636943,77.55127251148224],[13.052430734001685,77.55157828330995],[13.052190491219786,77.55176067352296],[13.051793567851085,77.55203962326051],[13.051495874906228,77.55223810672761],[13.051349639644107,77.5523453950882],[13.051114618505846,77.55257606506349],[13.05089526524184,77.55277454853059],[13.05069157989383,77.55297839641572],[13.050388662912004,77.55324125289918],[13.050252872420316,77.55334854125978],[13.049803718724151,77.55368113517763],[13.049370232406252,77.55397081375123],[13.049041200115324,77.55420148372652],[13.048320461185837,77.55469501018526],[13.048221187830828,77.55475401878358],[13.047913045059817,77.5549578666687],[13.047401213845617,77.55527436733247],[13.046999060005433,77.55552113056184],[13.046523786441895,77.55581080913544],[13.046199973161057,77.55602002143861],[13.046017175153965,77.5561809539795],[13.045704643712602,77.55642771720888]]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      1
+
+Value counts for created_by_id (Unique values: 1898):
+created_by_id
+FKUSR00105    104
+FKUSR00043    101
+FKUSR00009     80
+FKUSR00402     62
+FKUSR00026     57
+FKUSR00440     52
+FKUSR01441     52
+FKUSR00025     42
+FKUSR00061     41
+FKUSR00310     38
+FKUSR01295     38
+FKUSR00198     37
+FKUSR00881     36
+FKUSR00296     36
+FKUSR00065     34
+FKUSR00361     34
+FKUSR00470     33
+FKUSR00157     32
+FKUSR00171     31
+FKUSR01352     31
+
+Value counts for last_modified_by_id (Unique values: 304):
+last_modified_by_id
+FKUSR00001    7091
+FKUSR00009     553
+FKUSR01441      52
+FKUSR00026      38
+FKUSR00361      28
+FKUSR00881      24
+FKUSR00252      17
+FKUSR01351       7
+FKUSR00292       4
+FKUSR00296       4
+FKUSR01529       3
+FKUSR00647       3
+FKUSR01540       3
+FKUSR01429       3
+FKUSR00281       3
+FKUSR00342       3
+FKUSR01572       3
+FKUSR00761       3
+FKUSR00754       2
+FKUSR00771       2
+
+Value counts for assigned_to_police_id (Unique values: 62):
+assigned_to_police_id
+FKUSR01441    52
+FKUSR00292     4
+FKUSR01429     3
+FKUSR01540     3
+FKUSR00599     3
+FKUSR00005     2
+FKUSR00995     2
+FKUSR00188     2
+FKUSR01635     2
+FKUSR00819     2
+FKUSR00125     2
+FKUSR01311     1
+FKUSR00367     1
+FKUSR01542     1
+FKUSR01552     1
+FKUSR01941     1
+FKUSR01587     1
+FKUSR00141     1
+FKUSR01264     1
+FKUSR01498     1
+
+Value counts for citizen_accident_id (Unique values: 77):
+citizen_accident_id
+FKUSR01442    52
+FKUSR00006     1
+FKUSR01637     1
+FKUSR01636     1
+FKUSR01618     1
+FKUSR01616     1
+FKUSR01613     1
+FKUSR01610     1
+FKUSR01602     1
+FKUSR01588     1
+FKUSR01645     1
+FKUSR01575     1
+FKUSR01573     1
+FKUSR01553     1
+FKUSR01545     1
+FKUSR01544     1
+FKUSR01543     1
+FKUSR01541     1
+FKUSR01642     1
+FKUSR01655     1
+
+Value counts for police_station (Unique values: 54):
+police_station
+Yelahanka            377
+HAL Old Airport      361
+Sadashivanagar       302
+Halasuru Gate        297
+Byatarayanapura      297
+Yeshwanthpura        280
+Hennuru              276
+Kodigehalli          272
+Banaswadi            245
+K.R. Pura            228
+Kamakshipalya        224
+No Police Station    219
+Cubbon Park          212
+Jalahalli            197
+Chamarajpet          192
+High ground          185
+Madiwala             184
+Whitefield           181
+Peenya               178
+Jayanagara           178
+
+Value counts for kgid (Unique values: 1853):
+kgid
+FKKG000099    104
+FKKG000037    100
+FKKG000392     62
+FKKG000022     57
+FKKG000429     52
+FKKG000021     42
+FKKG000055     41
+FKKG001254     38
+FKKG000302     38
+FKKG000190     37
+FKKG000288     36
+FKKG000059     34
+FKKG000353     34
+FKKG000459     33
+FKKG000151     32
+FKKG000277     31
+FKKG000164     31
+FKKG001408     30
+FKKG000216     27
+FKKG000447     27
+
+Value counts for resolved_at_address (Unique values: 58):
+resolved_at_address
+Yeshwanthpura TTMC Bus Stand Road, Salarpuria Satva Luxuria, Malleshwaram West, Bengaluru, Karnataka. Pin-560055 (India)    8
+Yeshwanthpura TTMC Bus Stand Road, Yeshwanthapura Circle, Yeshwanthpur, Bengaluru, Karnataka. Pin-560022 (India)            4
+Unnamed Road, Kempegowda Layout, Adiganahalli, Bengaluru, Karnataka. Pin-560064 (India)                                     2
+2nd Main Road, Maleshwaramma Nagar, T Dasarahalli, Bengaluru, Karnataka. Pin-560057 (India)                                 2
+Dhananayakanahalli Main Road, Ramasandra South Taluka, Bengaluru, Karnataka. Pin-560060 (India)                             2
+Unnamed Road, T Agrahara, Bengaluru, Karnataka. Pin-562157 (India)                                                          2
+Dr Vishnuvardhan Main Road, Kanakadas Circle, Gaanakallu, Bengaluru, Karnataka. Pin-560060 (India)                          2
+1st Cross Road, Prosperhomes Bliss, Aditya Nagar, Chikkabettahalli, Bengaluru, Karnataka. Pin-560097 (India)                2
+Nanjappa Road, Lakshmiamma Garden, Shanti Nagar, Bengaluru, Karnataka. Pin-560027 (India)                                   1
+BTS Bus Depot Road, Lakshmiamma Garden, Shanti Nagar, Bengaluru, Karnataka. Pin-560027 (India)                              1
+19th Main Road, Heavie Halcyon, Agara, HSR Layout, Bengaluru, Karnataka. Pin-560102 (India)                                 1
+Dhanvanthri Road, Ayurvedic Hospital Junction, Gandhi Nagar, Bengaluru, Karnataka. Pin-560009 (India)                       1
+2nd A Main Road, Phase 1, Chandra Layout Stage 2, Bengaluru, Karnataka. Pin-560040 (India)                                  1
+Mysore Road, PMM Compound, Old Guddadahalli, Bengaluru, Karnataka. Pin-560026 (India)                                       1
+Hesarghatta Road, Kendriya Vidyalaya 2 Staff Quarters, Jalahalli East, Bengaluru, Karnataka. Pin-560014 (India)             1
+1st Cross Road, Kempaiah Garden, Peenya, Bengaluru, Karnataka. Pin-560058 (India)                                           1
+Dodda Ballapur Main Road, LBS Nagar, Yelahanka, Bengaluru, Karnataka. Pin-560064 (India)                                    1
+Chord Road, Birangi Palya, Shiva Nagar, Rajaji Nagar, Bengaluru, Karnataka. Pin-560010 (India)                              1
+19th Cross Road, Poornapragna Housing Society Layout, Kodipur, Bengaluru, Karnataka. Pin-560061 (India)                     1
+Police Road, Old Tharagupete, Chickpete, Bengaluru, Karnataka. Pin-560002 (India)                                           1
+
+Value counts for closed_by_id (Unique values: 1225):
+closed_by_id
+FKUSR00105    54
+FKUSR00402    27
+FKUSR00470    18
+FKUSR00458    18
+FKUSR00440    17
+FKUSR00133    16
+FKUSR00176    16
+FKUSR00051    16
+FKUSR00361    14
+FKUSR00281    14
+FKUSR00135    14
+FKUSR00182    14
+FKUSR00157    14
+FKUSR00238    13
+FKUSR00065    13
+FKUSR00196    13
+FKUSR00128    12
+FKUSR00141    12
+FKUSR01260    12
+FKUSR00310    12
+
+Value counts for closed_datetime (Unique values: 3141):
+closed_datetime
+2024-01-30 04:56:03.281509+00    1
+2023-12-23 04:19:56.47055+00     1
+2023-12-23 05:58:20.256648+00    1
+2023-12-23 08:10:33.419556+00    1
+2023-12-23 19:26:54.708418+00    1
+2023-12-29 20:32:02.340491+00    1
+2023-12-24 00:23:23.468191+00    1
+2023-12-24 04:24:11.853694+00    1
+2023-12-24 05:11:58.722839+00    1
+2023-12-24 08:06:29.40375+00     1
+2023-12-24 10:14:20.800151+00    1
+2023-12-26 02:57:58.982541+00    1
+2023-12-24 23:57:33.013173+00    1
+2023-12-30 03:23:41.310628+00    1
+2023-12-25 07:52:19.470717+00    1
+2023-12-25 19:08:45.459207+00    1
+2023-12-25 20:19:34.024533+00    1
+2023-12-25 23:34:12.655696+00    1
+2023-12-25 23:18:53.045839+00    1
+2023-12-26 01:17:39.316603+00    1
+
+Value counts for resolved_by_id (Unique values: 42):
+resolved_by_id
+FKUSR01665    8
+FKUSR00639    6
+FKUSR00169    4
+FKUSR00408    4
+FKUSR00648    4
+FKUSR01566    4
+FKUSR01595    3
+FKUSR01493    3
+FKUSR00188    2
+FKUSR00199    2
+FKUSR00125    2
+FKUSR01615    2
+FKUSR00958    1
+FKUSR01627    1
+FKUSR01661    1
+FKUSR00002    1
+FKUSR00441    1
+FKUSR01724    1
+FKUSR00484    1
+FKUSR01811    1
+
+Value counts for resolved_datetime (Unique values: 74):
+resolved_datetime
+2024-01-30 04:17:46.828355+00    1
+2023-12-06 05:58:29.601766+00    1
+2023-12-04 08:06:10.899388+00    1
+2023-12-02 21:00:03.902984+00    1
+2023-11-29 00:25:39.014309+00    1
+2023-11-24 00:11:02.899427+00    1
+2023-11-23 03:23:04.692551+00    1
+2023-11-18 05:08:59.235488+00    1
+2023-11-17 23:15:33.466609+00    1
+2023-11-17 00:48:54.689361+00    1
+2023-11-17 00:57:42.363071+00    1
+2023-11-16 21:01:03.84635+00     1
+2023-11-12 06:20:21.515667+00    1
+2023-11-11 22:24:59.836603+00    1
+2024-01-10 03:38:48.664553+00    1
+2023-12-20 23:29:21.122616+00    1
+2023-12-20 00:47:49.575269+00    1
+2023-12-05 22:33:59.949891+00    1
+2023-12-07 05:21:26.606945+00    1
+2024-01-30 23:15:33.148168+00    1
+
+Value counts for gba_identifier (Unique values: 5):
+gba_identifier
+Bengaluru Central Corporation    892
+Bengaluru West Corporation       791
+Bengaluru North Corporation      731
+Bengaluru South Corporation      587
+Bengaluru East Corporation       443
+
+Value counts for zone (Unique values: 10):
+zone
+Central Zone 2    623
+West Zone 1       433
+North Zone 2      413
+West Zone 2       358
+South Zone 2      354
+North Zone 1      318
+Central Zone 1    269
+East Zone 1       253
+South Zone 1      233
+East Zone 2       190
+
+Value counts for junction (Unique values: 294):
+junction
+MekhriCircle                      64
+AyyappaTempleJunc                 49
+SatteliteBusStandJunc             43
+YeshwanthpuraCircle               38
+YelhankaCircle                    34
+toll gate mysore road             33
+SilkBoardJunc                     33
+JalahalliCross(SM Circle)         32
+Nagavara-ORR Junction             32
+K R Circle                        31
+KIMCO Junction                    31
+TownhallJunction                  30
+Devasandra(k r puram)             30
+VeerannapalyaJunction(BEL,HO)     30
+HesaraghattaJunction              30
+KoramangalaWaterTankJunc          29
+GokuldasImagesJunc                28
+HebbalFlyoverJunc                 28
+BagalurCrossJunc                  27
+BigBazaarJunction(OldMadrasRd)    26
+
+=== NUMERICAL DESCRIBE ===
+          latitude    longitude  endlatitude  endlongitude  map_file  age_of_truck    client_id  comment  meta_data  resolved_at_latitude  resolved_at_longitude
+count  8173.000000  8173.000000  8004.000000   8004.000000       0.0    276.000000  8173.000000      0.0        0.0             74.000000              74.000000
+mean     12.987076    77.596034     1.128050      6.678011       NaN    235.518116     1.009788      NaN        NaN             13.002599              77.569049
+std       0.060109     0.061193     3.736845     21.761316       NaN    634.059816     0.098457      NaN        NaN              0.091377               0.057246
+min      12.801041    77.308731     0.000000      0.000000       NaN      0.000000     1.000000      NaN        NaN             12.841568              77.390820
+25%      12.951635    77.556747     0.000000      0.000000       NaN      5.000000     1.000000      NaN        NaN             12.947656              77.543782
+50%      12.982847    77.589460     0.000000      0.000000       NaN     10.000000     1.000000      NaN        NaN             12.983715              77.556135
+75%      13.026867    77.625853     0.000000      0.000000       NaN     15.000000     1.000000      NaN        NaN             13.019590              77.589899
+max      13.267510    77.769403    59.860133     80.720691       NaN   2026.000000     2.000000      NaN        NaN             13.257297              77.712662
